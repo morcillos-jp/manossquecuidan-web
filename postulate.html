@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulate o solicitá el servicio - Manos que Cuidan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pagina-formularios">
+
+    <header class="header-chico">
+        <a href="index.html" class="volver">← Volver al inicio</a>
+        <img src="imagenes/logo.jpeg" alt="Logo Manos que Cuidan" class="logo">
+        <h1>Manos que Cuidan</h1>
+    </header>
+
+    <div class="selector-formulario">
+        <button class="tab-btn activo" onclick="mostrarFormulario('cuidador')">Quiero trabajar cuidando</button>
+        <button class="tab-btn" onclick="mostrarFormulario('paciente')">Necesito el servicio</button>
+    </div>
+
+    <section id="panel-cuidadores">
+        <h2>Formulario para cuidadores</h2>
+        <form id="form-cuidador">
+            <label for="nombre-cuidador">Nombre completo</label>
+            <input type="text" id="nombre-cuidador" name="nombre" required>
+
+            <label for="telefono-cuidador">Teléfono</label>
+            <input type="tel" id="telefono-cuidador" name="telefono" required>
+
+            <label for="email-cuidador">Email</label>
+            <input type="email" id="email-cuidador" name="email" required>
+
+            <label for="experiencia">Experiencia previa</label>
+            <textarea id="experiencia" name="experiencia" rows="4"></textarea>
+
+            <label for="cv">Currículum (PDF)</label>
+            <input type="file" id="cv" name="cv" accept=".pdf" required>
+
+            <label for="antecedentes">Certificado de antecedentes penales (PDF)</label>
+            <input type="file" id="antecedentes" name="antecedentes" accept=".pdf" required>
+
+            <label for="carnet">Carnet sanitario (PDF)</label>
+            <input type="file" id="carnet" name="carnet" accept=".pdf" required>
+
+            <button type="submit">Enviar postulación</button>
+        </form>
+    </section>
+
+    <section id="panel-pacientes">
+        <h2>Formulario para familias / pacientes</h2>
+        <form id="form-paciente">
+            <label for="nombre-paciente">Nombre completo</label>
+            <input type="text" id="nombre-paciente" name="nombre" required>
+
+            <label for="telefono-paciente">Teléfono</label>
+            <input type="tel" id="telefono-paciente" name="telefono" required>
+
+            <label for="email-paciente">Email</label>
+            <input type="email" id="email-paciente" name="email" required>
+
+            <label for="tipo-cuidado">¿Qué tipo de cuidado necesitás?</label>
+            <select id="tipo-cuidado" name="tipo_cuidado" required>
+                <option value="">Seleccioná una opción</option>
+                <option value="compania">Compañía</option>
+                <option value="cuidados-basicos">Cuidados básicos</option>
+                <option value="cuidados-especializados">Cuidados especializados</option>
+            </select>
+
+            <label for="zona">Zona / barrio</label>
+            <input type="text" id="zona" name="zona" required>
+
+            <label for="comentarios">Comentarios adicionales</label>
+            <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+
+            <button type="submit">Enviar consulta</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
