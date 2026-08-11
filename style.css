@@ -37,7 +37,7 @@ h1, h2 {
    HEADER
    ============================================ */
 header {
-    background-image: linear-gradient(rgba(36, 65, 58, 0.55), rgba(36, 65, 58, 0.55)), url('imagenes/hero.jpg');
+    background-image: linear-gradient(rgba(36, 65, 58, 0.55), rgba(36, 65, 58, 0.55)), url('Imagenes/hero.jpg');
     background-size: cover;
     background-position: center 30%;
     color: white;
