@@ -1,5 +1,5 @@
 /* ============================================
-   VARIABLES: paleta y tipografías, en un solo lugar
+   VARIABLES
    ============================================ */
 :root {
     --verde: #4a7c6f;
@@ -14,7 +14,7 @@
 }
 
 /* ============================================
-   RESETEO BÁSICO
+   RESETEO
    ============================================ */
 * {
     margin: 0;
@@ -37,36 +37,31 @@ h1, h2 {
    HEADER
    ============================================ */
 header {
-    padding: 0;
-    line-height: 0;
+    background-image: linear-gradient(rgba(36, 65, 58, 0.55), rgba(36, 65, 58, 0.55)), url('imagenes/hero.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    color: white;
+    text-align: center;
+    padding: 60px 20px 90px;
 }
 
-.banner-img {
-    width: 100%;
-    display: block;
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    white-space: nowrap;
-    border: 0;
+header h1,
+header p,
+.header-info {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .logo {
-    max-width: 150px;
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 120px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 50%;
+    padding: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
-
 header h1 {
     font-size: 38px;
     font-weight: 600;
@@ -77,8 +72,17 @@ header p {
     margin-top: 8px;
 }
 
+.header-info {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+    flex-wrap: wrap;
+}
+
 .header-chico {
-    background-color: var(--verde);
+    background-color: var(--verde-oscuro);
     color: white;
     text-align: center;
     padding: 20px;
@@ -86,7 +90,9 @@ header p {
 }
 
 .header-chico .logo {
-    max-width: 80px;
+    max-width: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 .volver {
@@ -103,7 +109,7 @@ header p {
 }
 
 /* ============================================
-   OLA DECORATIVA — el divisor orgánico entre secciones
+   OLA DECORATIVA
    ============================================ */
 .ola {
     line-height: 0;
@@ -117,7 +123,7 @@ header p {
 }
 
 .ola-verde-crema {
-    background-color: var(--verde);
+    background-color: var(--verde-oscuro);
 }
 
 .ola-verde-crema path {
@@ -158,7 +164,7 @@ h2 {
 }
 
 /* ============================================
-   BOTONES — forma de píldora
+   BOTONES
    ============================================ */
 button {
     background-color: var(--verde);
@@ -221,15 +227,19 @@ button:hover {
 .hero-imagen {
     flex: 1;
     position: relative;
+    aspect-ratio: 4 / 5;
 }
 
 .hero-imagen::before {
     content: "";
     position: absolute;
-    inset: -18px;
+    top: 20px;
+    left: 20px;
+    width: 100%;
+    height: 100%;
     background-color: var(--dorado);
-    opacity: 0.18;
-    border-radius: 40% 60% 55% 45% / 45% 40% 60% 55%;
+    opacity: 0.35;
+    border-radius: 24px;
     z-index: 0;
 }
 
@@ -237,6 +247,8 @@ button:hover {
     position: relative;
     z-index: 1;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(36, 65, 58, 0.2);
 }
@@ -307,6 +319,30 @@ button:hover {
 
 #contacto .eyebrow {
     color: var(--dorado);
+}
+
+.botones-contacto {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1da851;
+}
+
+.btn-email {
+    background-color: var(--dorado);
+}
+
+.btn-email:hover {
+    background-color: #b3873a;
 }
 
 /* ============================================
@@ -382,7 +418,7 @@ form button {
    ============================================ */
 @media (max-width: 700px) {
     header {
-        padding: 35px 15px 55px;
+        padding: 40px 15px 60px;
     }
 
     header h1 {
@@ -399,6 +435,10 @@ form button {
 
     .hero-texto p {
         max-width: 100%;
+    }
+
+    .hero-imagen {
+        aspect-ratio: 4 / 3;
     }
 
     .hero-imagen::before {
