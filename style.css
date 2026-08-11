@@ -418,46 +418,117 @@ form button {
    ============================================ */
 @media (max-width: 700px) {
     header {
-        padding: 40px 15px 60px;
+        padding: 35px 15px 50px;
+        background-position: center 20%;
+    }
+
+    .logo {
+        max-width: 90px;
+        width: 90px;
+        height: 90px;
     }
 
     header h1 {
-        font-size: 28px;
+        font-size: 26px;
+    }
+
+    header p {
+        font-size: 14px;
     }
 
     section {
         padding: 40px 15px;
     }
 
+    h2 {
+        font-size: 24px;
+    }
+
     .hero {
         flex-direction: column;
+        gap: 30px;
+    }
+
+    .hero-texto h2 {
+        font-size: 26px;
     }
 
     .hero-texto p {
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    .hero-botones {
+        width: 100%;
+    }
+
+    .hero-botones button {
         max-width: 100%;
     }
 
     .hero-imagen {
         aspect-ratio: 4 / 3;
+        width: 100%;
     }
 
     .hero-imagen::before {
-        display: none;
+        top: 12px;
+        left: 12px;
+    }
+
+    #sobre-nosotros {
+        padding: 25px;
+    }
+
+    #sobre-nosotros::before {
+        font-size: 70px;
+        top: 0;
+        left: 15px;
+    }
+
+    #sobre-nosotros p {
+        font-size: 15px;
     }
 
     .galeria-grid {
         grid-template-columns: 1fr;
     }
 
-    #sobre-nosotros {
-        padding: 30px;
+    .galeria-grid img {
+        height: 200px;
     }
 
-    #sobre-nosotros::before {
-        font-size: 90px;
+    .botones-contacto {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-contacto button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .ola svg {
+        height: 40px;
     }
 
     form {
         max-width: 100%;
+    }
+
+    #panel-cuidadores,
+    #panel-pacientes {
+        padding: 25px;
+        margin: 15px;
+    }
+
+    .selector-formulario {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab-btn {
+        width: 100%;
+        max-width: 300px;
     }
 }
