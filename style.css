@@ -1,0 +1,463 @@
+/* ============================================
+   VARIABLES
+   ============================================ */
+:root {
+    --verde: #4a7c6f;
+    --verde-oscuro: #24413a;
+    --crema: #fbf6ee;
+    --dorado: #c89a4b;
+    --blanco: #ffffff;
+    --texto: #33312c;
+
+    --fuente-titulos: 'Fraunces', serif;
+    --fuente-texto: 'Nunito', Arial, sans-serif;
+}
+
+/* ============================================
+   RESETEO
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-texto);
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--crema);
+}
+
+h1, h2 {
+    font-family: var(--fuente-titulos);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+    background-image: linear-gradient(rgba(36, 65, 58, 0.55), rgba(36, 65, 58, 0.55)), url('imagenes/hero.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    color: white;
+    text-align: center;
+    padding: 60px 20px 90px;
+}
+
+header h1,
+header p,
+.header-info {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+    max-width: 120px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 50%;
+    padding: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+header h1 {
+    font-size: 38px;
+    font-weight: 600;
+}
+
+header p {
+    opacity: 0.9;
+    margin-top: 8px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+    flex-wrap: wrap;
+}
+
+.header-chico {
+    background-color: var(--verde-oscuro);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.header-chico .logo {
+    max-width: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   OLA DECORATIVA
+   ============================================ */
+.ola {
+    line-height: 0;
+    margin-top: -2px;
+}
+
+.ola svg {
+    display: block;
+    width: 100%;
+    height: 60px;
+}
+
+.ola-verde-crema {
+    background-color: var(--verde-oscuro);
+}
+
+.ola-verde-crema path {
+    fill: var(--crema);
+}
+
+.ola-crema-verde {
+    background-color: var(--crema);
+}
+
+.ola-crema-verde path {
+    fill: var(--verde-oscuro);
+}
+
+/* ============================================
+   SECCIONES GENERALES
+   ============================================ */
+section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.eyebrow {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dorado);
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: var(--verde-oscuro);
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+button {
+    background-color: var(--verde);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-family: var(--fuente-texto);
+    font-weight: 700;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--verde-oscuro);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding-top: 20px;
+}
+
+.hero-texto {
+    flex: 1;
+}
+
+.hero-texto h2 {
+    font-size: 36px;
+    line-height: 1.25;
+}
+
+.hero-texto p {
+    margin: 18px 0;
+    font-size: 17px;
+    max-width: 480px;
+}
+
+.hero-botones {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.hero-botones button {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+}
+
+.hero-imagen {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 4 / 5;
+}
+
+.hero-imagen::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dorado);
+    opacity: 0.35;
+    border-radius: 24px;
+    z-index: 0;
+}
+
+.hero-imagen img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(36, 65, 58, 0.2);
+}
+
+/* ============================================
+   SOBRE NOSOTROS
+   ============================================ */
+#sobre-nosotros {
+    background-color: var(--blanco);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    padding: 50px;
+    position: relative;
+}
+
+#sobre-nosotros::before {
+    content: "\201C";
+    font-family: var(--fuente-titulos);
+    font-size: 140px;
+    color: var(--dorado);
+    opacity: 0.2;
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    line-height: 1;
+}
+
+#sobre-nosotros h2,
+#sobre-nosotros p {
+    position: relative;
+}
+
+#sobre-nosotros p {
+    margin-bottom: 14px;
+}
+
+/* ============================================
+   GALERÍA
+   ============================================ */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.galeria-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* ============================================
+   CONTACTO
+   ============================================ */
+#contacto {
+    background-color: var(--verde-oscuro);
+    color: white;
+    text-align: center;
+    max-width: 100%;
+    padding-bottom: 60px;
+}
+
+#contacto h2 {
+    color: white;
+}
+
+#contacto .eyebrow {
+    color: var(--dorado);
+}
+
+.botones-contacto {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1da851;
+}
+
+.btn-email {
+    background-color: var(--dorado);
+}
+
+.btn-email:hover {
+    background-color: #b3873a;
+}
+
+/* ============================================
+   FORMULARIOS (postulate.html)
+   ============================================ */
+.pagina-formularios {
+    background-color: var(--crema);
+}
+
+.selector-formulario {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 30px 20px 10px;
+}
+
+.tab-btn {
+    background-color: white;
+    color: var(--verde);
+    border: 2px solid var(--verde);
+    padding: 15px 25px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tab-btn.activo {
+    background-color: var(--verde);
+    color: white;
+}
+
+#panel-cuidadores,
+#panel-pacientes {
+    background-color: white;
+    max-width: 600px;
+    margin: 20px auto 60px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.oculto {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+input, textarea, select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: var(--fuente-texto);
+}
+
+form button {
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 700px) {
+    header {
+        padding: 40px 15px 60px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    section {
+        padding: 40px 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-texto p {
+        max-width: 100%;
+    }
+
+    .hero-imagen {
+        aspect-ratio: 4 / 3;
+    }
+
+    .hero-imagen::before {
+        display: none;
+    }
+
+    .galeria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #sobre-nosotros {
+        padding: 30px;
+    }
+
+    #sobre-nosotros::before {
+        font-size: 90px;
+    }
+
+    form {
+        max-width: 100%;
+    }
+}
