@@ -538,3 +538,17 @@ form button {
         max-width: 300px;
     }
 }
+
+.badge-opcional {
+    display: inline-block;
+    background-color: #eee;
+    color: #666;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
