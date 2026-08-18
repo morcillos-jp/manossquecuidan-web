@@ -45,9 +45,13 @@ formCuidador.addEventListener("submit", async function (e) {
   boton.disabled = true;
   boton.textContent = "Enviando...";
 
-  const cv = await archivoABase64(document.getElementById("cv").files[0]);
-  const antecedentes = await archivoABase64(document.getElementById("antecedentes").files[0]);
-  const carnet = await archivoABase64(document.getElementById("carnet").files[0]);
+const cvFile = document.getElementById("cv").files[0];
+const antecedentesFile = document.getElementById("antecedentes").files[0];
+const carnetFile = document.getElementById("carnet").files[0];
+
+const cv = await archivoABase64(cvFile);
+const antecedentes = antecedentesFile ? await archivoABase64(antecedentesFile) : "";
+const carnet = carnetFile ? await archivoABase64(carnetFile) : "";
 
   const datos = new URLSearchParams();
   datos.append("tipo", "cuidador");
