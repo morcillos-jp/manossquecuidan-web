@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Restablecer contraseña | Manos que Cuidan</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#edf5f1;color:#18312d;min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(460px,100%);background:#fff;border:1px solid #d5e1dd;border-radius:22px;padding:28px;box-shadow:0 12px 32px #18312d18}h1{margin:0 0 8px;color:#247a68}p{line-height:1.5;color:#61736f}label{display:block;font-weight:700;margin:20px 0 7px}input{width:100%;min-height:52px;border:1px solid #d5e1dd;border-radius:13px;padding:12px;font-size:17px}button{width:100%;min-height:52px;border:0;border-radius:14px;background:#247a68;color:#fff;font-size:16px;font-weight:700;margin-top:16px;cursor:pointer}button:disabled{opacity:.55}.message{margin-top:16px;padding:12px;border-radius:12px;background:#dff0e8;color:#18312d}.error{background:#f8dddd;color:#8a2520}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Manos que Cuidan</h1>
+    <p>Creá una nueva contraseña para volver a ingresar en la aplicación.</p>
+    <form id="form">
+      <label for="password">Nueva contraseña</label>
+      <input id="password" type="password" minlength="8" autocomplete="new-password" required>
+      <label for="confirm">Repetir contraseña</label>
+      <input id="confirm" type="password" minlength="8" autocomplete="new-password" required>
+      <button id="submit" type="submit">Guardar nueva contraseña</button>
+    </form>
+    <div id="message" hidden></div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL='https://zvywpzqkqfyjkxkqqppz.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY='sb_publishable_HWDeVByKUMmqidVSKAbzKw_36rh4Eps';
+    const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+    const form=document.getElementById('form'),message=document.getElementById('message'),button=document.getElementById('submit');
+    const show=(text,error=false)=>{message.textContent=text;message.className=error?'message error':'message';message.hidden=false};
+    form.addEventListener('submit',async(event)=>{
+      event.preventDefault();
+      const password=document.getElementById('password').value,confirm=document.getElementById('confirm').value;
+      if(password.length<8)return show('La contraseña debe tener al menos 8 caracteres.',true);
+      if(password!==confirm)return show('Las contraseñas no coinciden.',true);
+      button.disabled=true;
+      const{error}=await client.auth.updateUser({password});
+      button.disabled=false;
+      if(error)return show('El enlace venció o no es válido. Solicitá uno nuevo desde la app.',true);
+      form.hidden=true;show('Contraseña actualizada. Ya podés volver a la aplicación e ingresar.');
+    });
+  </script>
+</body>
+</html>
