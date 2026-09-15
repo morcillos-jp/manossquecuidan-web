@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#214d43">
+  <title>Correo verificado | Manos que Cuidan</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f8f4ec;color:#18312d;min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(460px,100%);background:#fff;border:1px solid #d5e1dd;border-radius:22px;padding:30px;text-align:center;box-shadow:0 12px 32px #18312d18}.mark{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:#dff0e8;color:#247a68;font-size:34px;font-weight:800}h1{margin:0 0 10px;color:#214d43;font-family:Georgia,serif;font-size:30px}p{line-height:1.55;color:#61736f}.app-link{width:100%;min-height:52px;border-radius:14px;background:#4d8a7b;color:#fff;font-size:16px;font-weight:700;margin-top:20px;display:flex;align-items:center;justify-content:center;text-decoration:none}.error .mark{background:#f8dddd;color:#8a2520}
+  </style>
+</head>
+<body>
+  <main id="card" class="card">
+    <div id="mark" class="mark">✓</div>
+    <h1 id="title">¡Correo verificado!</h1>
+    <p id="message">Tu cuenta ya está confirmada. Volvé a la aplicación e ingresá con tu correo y contraseña.</p>
+    <a class="app-link" href="manosquecuidan://">Volver a la aplicación</a>
+  </main>
+  <script>
+    const params=new URLSearchParams(location.search),hash=new URLSearchParams(location.hash.replace(/^#/,''));
+    if(params.get('error')||hash.get('error')){
+      document.getElementById('card').classList.add('error');
+      document.getElementById('mark').textContent='!';
+      document.getElementById('title').textContent='No pudimos verificar el correo';
+      document.getElementById('message').textContent='El enlace venció o ya fue utilizado. Volvé a la aplicación e iniciá sesión para solicitar uno nuevo.';
+    }
+    history.replaceState({},document.title,location.pathname);
+  </script>
+</body>
+</html>

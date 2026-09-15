@@ -3,42 +3,100 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#214d43">
   <title>Restablecer contraseña | Manos que Cuidan</title>
   <style>
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#edf5f1;color:#18312d;min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(460px,100%);background:#fff;border:1px solid #d5e1dd;border-radius:22px;padding:28px;box-shadow:0 12px 32px #18312d18}h1{margin:0 0 8px;color:#247a68}p{line-height:1.5;color:#61736f}label{display:block;font-weight:700;margin:20px 0 7px}input{width:100%;min-height:52px;border:1px solid #d5e1dd;border-radius:13px;padding:12px;font-size:17px}button{width:100%;min-height:52px;border:0;border-radius:14px;background:#247a68;color:#fff;font-size:16px;font-weight:700;margin-top:16px;cursor:pointer}button:disabled{opacity:.55}.message{margin-top:16px;padding:12px;border-radius:12px;background:#dff0e8;color:#18312d}.error{background:#f8dddd;color:#8a2520}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f8f4ec;color:#18312d;min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(460px,100%);background:#fff;border:1px solid #d5e1dd;border-radius:22px;padding:28px;box-shadow:0 12px 32px #18312d18}.brand{color:#4d8a7b;font-size:13px;font-weight:800;letter-spacing:1.4px;margin:0 0 8px;text-transform:uppercase}h1{margin:0 0 8px;color:#214d43;font-family:Georgia,serif;font-size:30px}p{line-height:1.5;color:#61736f}label{display:block;font-weight:700;margin:20px 0 7px}input{width:100%;min-height:52px;border:1px solid #d5e1dd;border-radius:13px;padding:12px;font-size:17px}input:focus{border-color:#4d8a7b;outline:3px solid #4d8a7b22}button,.app-link{width:100%;min-height:52px;border:0;border-radius:14px;background:#4d8a7b;color:#fff;font-size:16px;font-weight:700;margin-top:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none}button:disabled{opacity:.55;cursor:wait}.message{margin-top:16px;padding:13px;border-radius:12px;background:#dff0e8;color:#18312d;line-height:1.45}.error{background:#f8dddd;color:#8a2520}.loading{background:#edf5f1}.hint{font-size:13px;margin:7px 0 0}.hidden{display:none}
   </style>
 </head>
 <body>
   <main class="card">
+    <p class="brand">Cuidado y acompañamiento</p>
     <h1>Manos que Cuidan</h1>
-    <p>Creá una nueva contraseña para volver a ingresar en la aplicación.</p>
-    <form id="form">
+    <p>Elegí una contraseña nueva para volver a ingresar en la aplicación.</p>
+    <div id="status" class="message loading" role="status">Validando el enlace seguro…</div>
+    <form id="form" class="hidden">
       <label for="password">Nueva contraseña</label>
-      <input id="password" type="password" minlength="8" autocomplete="new-password" required>
+      <input id="password" type="password" minlength="6" autocomplete="new-password" required>
+      <p class="hint">Debe tener al menos 6 caracteres.</p>
       <label for="confirm">Repetir contraseña</label>
-      <input id="confirm" type="password" minlength="8" autocomplete="new-password" required>
+      <input id="confirm" type="password" minlength="6" autocomplete="new-password" required>
       <button id="submit" type="submit">Guardar nueva contraseña</button>
     </form>
-    <div id="message" hidden></div>
+    <a id="openApp" class="app-link hidden" href="manosquecuidan://">Volver a la aplicación</a>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL='https://zvywpzqkqfyjkxkqqppz.supabase.co';
+    // Antes de publicar, reemplazá este texto por EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY.
     const SUPABASE_PUBLISHABLE_KEY='sb_publishable_HWDeVByKUMmqidVSKAbzKw_36rh4Eps';
-    const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-    const form=document.getElementById('form'),message=document.getElementById('message'),button=document.getElementById('submit');
-    const show=(text,error=false)=>{message.textContent=text;message.className=error?'message error':'message';message.hidden=false};
+    const form=document.getElementById('form'),status=document.getElementById('status'),button=document.getElementById('submit'),openApp=document.getElementById('openApp');
+    let client=null,ready=false;
+
+    const show=(text,error=false)=>{
+      status.textContent=text;
+      status.className=error?'message error':'message';
+    };
+    const expired=()=>{
+      form.classList.add('hidden');
+      show('Este enlace venció o ya fue utilizado. Volvé a la app y solicitá uno nuevo desde “Olvidé mi contraseña”.',true);
+    };
+    const humanError=(error)=>{
+      const value=String(error?.message||error||'').toLowerCase();
+      if(value.includes('fetch')||value.includes('network'))return 'No pudimos conectarnos. Revisá tu conexión a internet.';
+      if(value.includes('same password'))return 'La contraseña nueva debe ser diferente de la anterior.';
+      if(value.includes('weak')||value.includes('least'))return 'La contraseña debe tener al menos 6 caracteres.';
+      return 'No pudimos cambiar la contraseña. Solicitá un enlace nuevo desde la app.';
+    };
+
+    async function prepareRecovery(){
+      const params=new URLSearchParams(location.search);
+      const hash=new URLSearchParams(location.hash.replace(/^#/,''));
+      if(params.get('error')||hash.get('error'))return expired();
+      if(SUPABASE_PUBLISHABLE_KEY.startsWith('REEMPLAZAR_')){
+        return show('La página de recuperación todavía no fue configurada. Comunicate con Manos que Cuidan.',true);
+      }
+      client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{detectSessionInUrl:true,persistSession:true}});
+      try{
+        const code=params.get('code');
+        if(code){
+          const {error}=await client.auth.exchangeCodeForSession(code);
+          if(error)return expired();
+          history.replaceState({},document.title,location.pathname);
+        }
+        const {data,error}=await client.auth.getSession();
+        if(error||!data.session)return expired();
+        history.replaceState({},document.title,location.pathname);
+        ready=true;
+        form.classList.remove('hidden');
+        show('Enlace verificado. Ya podés elegir tu contraseña nueva.');
+        document.getElementById('password').focus();
+      }catch(error){
+        show(humanError(error),true);
+      }
+    }
+
     form.addEventListener('submit',async(event)=>{
       event.preventDefault();
+      if(!ready||!client)return expired();
       const password=document.getElementById('password').value,confirm=document.getElementById('confirm').value;
-      if(password.length<8)return show('La contraseña debe tener al menos 8 caracteres.',true);
+      if(password.length<6)return show('La contraseña debe tener al menos 6 caracteres.',true);
       if(password!==confirm)return show('Las contraseñas no coinciden.',true);
-      button.disabled=true;
-      const{error}=await client.auth.updateUser({password});
-      button.disabled=false;
-      if(error)return show('El enlace venció o no es válido. Solicitá uno nuevo desde la app.',true);
-      form.hidden=true;show('Contraseña actualizada. Ya podés volver a la aplicación e ingresar.');
+      button.disabled=true;button.textContent='Guardando…';
+      try{
+        const {error}=await client.auth.updateUser({password});
+        if(error)return show(humanError(error),true);
+        await client.auth.signOut();
+        ready=false;form.classList.add('hidden');openApp.classList.remove('hidden');
+        show('¡Contraseña actualizada! Ya podés volver a la aplicación e ingresar.');
+      }catch(error){
+        show(humanError(error),true);
+      }finally{
+        button.disabled=false;button.textContent='Guardar nueva contraseña';
+      }
     });
+
+    prepareRecovery();
   </script>
 </body>
 </html>
